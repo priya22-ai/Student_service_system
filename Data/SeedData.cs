@@ -21,7 +21,8 @@ namespace WebApplication1.Data
             }
 
             string staffEmail = "priya@iubat.edu";
-            if (await userManager.FindByEmailAsync(staffEmail) == null)
+            var existingStaff = await userManager.FindByEmailAsync(staffEmail);
+            if (existingStaff == null)
             {
                 var staffUser = new ApplicationUser
                 {
@@ -35,11 +36,29 @@ namespace WebApplication1.Data
                 var result = await userManager.CreateAsync(staffUser, "P@ssw0rd");
                 if (result.Succeeded)
                 {
-                    await userManager.AddToRoleAsync(staffUser, "Staff");
+                    var roleResult = await userManager.AddToRoleAsync(staffUser, "Staff");
+                    Console.WriteLine(roleResult.Succeeded
+                        ? $"[Seed] Created staff {staffEmail} and assigned Staff role."
+                        : $"[Seed] Created {staffEmail} but failed to add Staff role: {string.Join(", ", roleResult.Errors.Select(e => e.Description))}");
                 }
                 else
                 {
                     Console.WriteLine($"[Seed] Failed to create {staffEmail}: {string.Join(", ", result.Errors.Select(e => e.Description))}");
+                }
+            }
+            else
+            {
+                // Ensure existing priya has Staff role (fixes case where user existed without role)
+                if (!await userManager.IsInRoleAsync(existingStaff, "Staff"))
+                {
+                    var addRoleResult = await userManager.AddToRoleAsync(existingStaff, "Staff");
+                    Console.WriteLine(addRoleResult.Succeeded
+                        ? $"[Seed] Fixed: Added missing Staff role to existing {staffEmail}."
+                        : $"[Seed] Failed to add Staff role to {staffEmail}: {string.Join(", ", addRoleResult.Errors.Select(e => e.Description))}");
+                }
+                else
+                {
+                    Console.WriteLine($"[Seed] Staff {staffEmail} already exists with Staff role.");
                 }
             }
 

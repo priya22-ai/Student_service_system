@@ -56,8 +56,16 @@ namespace WebApplication1.Controllers
         }
 
         [HttpGet]
-        public IActionResult Login(string? returnUrl = null)
+        public async Task<IActionResult> Login(string? returnUrl = null)
         {
+            // If already authenticated, redirect to appropriate dashboard (fixes "login form still there" after login)
+            if (User.Identity != null && User.Identity.IsAuthenticated)
+            {
+                var currentUser = await _userManager.GetUserAsync(User);
+                if (currentUser != null && await _userManager.IsInRoleAsync(currentUser, "Staff"))
+                    return RedirectToAction("AllRequests", "Staff");
+                return RedirectToAction("MyRequests", "Student");
+            }
             ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
