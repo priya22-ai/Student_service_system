@@ -2,15 +2,15 @@
     ViewData["Title"] = "Home";
 }
 
-<!-- ===== SLIDER (NDC style) ===== -->
-<section class="rs-slider">
+<!-- ===== HERO / SLIDER — NDC navy/gold, only core CTAs ===== -->
+<section class="rs-slider" style="min-height:460px;">
     <div class="slider-bg"></div>
     <div class="container">
         <div class="slide-content">
-            <span class="sl-subtitle">IUBAT — International University of Business Agriculture and Technology</span>
-            <h1 class="slider-title">WELCOME TO <span>IUBAT</span><br>CAMPUS SERVICES</h1>
+            <span class="sl-subtitle">IUBAT — Student Service Request System</span>
+            <h1 class="slider-title">SIMPLE REQUEST.<br><span>SECURE TRACKING.</span></h1>
             <p class="slider-desc">
-                Raise, follow and resolve your ID card, transcript and certificate requests — streamlined, transparent and always available for every IUBAT student.
+                Students submit ID card, transcript and certificate requests in one form — track status live. Staff securely manage all submissions.
             </p>
             @if (User.Identity != null && User.Identity.IsAuthenticated)
             {
@@ -22,188 +22,83 @@
                     }
                     else if (User.IsInRole("Staff"))
                     {
-                        <a asp-controller="Staff" asp-action="AllRequests" class="sl-get-started-btn"><i class="fa fa-cogs"></i> Manage Requests</a>
-                        <a href="#" class="sl-readmore-btn"><i class="fa fa-bar-chart"></i> Dashboard</a>
+                        <a asp-controller="Staff" asp-action="AllRequests" class="sl-get-started-btn"><i class="fa fa-cogs"></i> View All Requests</a>
                     }
                 </div>
             }
             else
             {
                 <div class="slider-btns">
-                    <a asp-controller="Account" asp-action="Login" class="sl-get-started-btn"><i class="fa fa-sign-in"></i> Sign In to Portal</a>
-                    <a asp-controller="Account" asp-action="Register" class="sl-readmore-btn"><i class="fa fa-user-plus"></i> Create Student Account</a>
+                    <a asp-controller="Account" asp-action="Login" class="sl-get-started-btn"><i class="fa fa-sign-in"></i> Student / Staff Login</a>
+                    <a asp-controller="Account" asp-action="Register" class="sl-readmore-btn"><i class="fa fa-user-plus"></i> Register (Student)</a>
                 </div>
             }
             <div class="slider-meta">
-                <span><i class="fa fa-shield"></i> Secure & Staff-Verified</span>
-                <span><i class="fa fa-clock-o"></i> 24/7 Portal Access</span>
-                <span><i class="fa fa-check-circle"></i> Live Tracking</span>
+                <span><i class="fa fa-lock"></i> Role-based access</span>
+                <span><i class="fa fa-check-circle"></i> Pending → Processing → Completed/Rejected</span>
             </div>
         </div>
     </div>
 </section>
 
-<!-- ===== SERVICES / QUICK LINKS (like NDC 6 tiles) ===== -->
-<section class="rs-services">
+<!-- ===== ONLY REQUIRED FEATURES — 3 request types ===== -->
+<section class="rs-services" style="padding:38px 0 32px;">
     <div class="container">
-        <div class="services-grid">
-            <div class="services-item">
-                <div class="svc-icon"><i class="fa fa-file-text-o"></i></div>
-                <h4><a href="#">Request Online</a></h4>
-                <p>File ID, transcript & certificate requests in under a minute.</p>
-            </div>
-            <div class="services-item">
-                <div class="svc-icon"><i class="fa fa-search"></i></div>
-                <h4><a href="#">Live Tracking</a></h4>
-                <p>Pending → Processing → Completed or Rejected updates.</p>
-            </div>
-            <div class="services-item">
-                <div class="svc-icon"><i class="fa fa-lock"></i></div>
-                <h4><a href="#">Staff Control</a></h4>
-                <p>Only verified staff can view & update requests securely.</p>
-            </div>
-            <div class="services-item">
-                <div class="svc-icon"><i class="fa fa-graduation-cap"></i></div>
-                <h4><a href="#">Academic Support</a></h4>
-                <p>Guidelines, forms & help for every academic service.</p>
-            </div>
-            <div class="services-item">
-                <div class="svc-icon"><i class="fa fa-life-ring"></i></div>
-                <h4><a href="#">Help Desk</a></h4>
-                <p>All requests linked to your account — private & protected.</p>
-            </div>
-            <div class="services-item">
-                <div class="svc-icon"><i class="fa fa-info-circle"></i></div>
-                <h4><a href="#">Admission Info</a></h4>
-                <p>New students can register and submit requests instantly.</p>
-            </div>
+        <div class="sec-title" style="margin-bottom:22px;">
+            <h2>CORE <span>SERVICES</span></h2>
+            <p>Exactly the three request types required — no extra bloat, easy for students to select.</p>
         </div>
-    </div>
-</section>
-
-<!-- ===== ABOUT / PRINCIPAL MESSAGE style ===== -->
-<section class="rs-about">
-    <div class="container">
-        <div class="row g-4 align-items-center">
-            <div class="col-lg-5">
-                <div class="about-img">
-                    <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=760&q=80" alt="IUBAT Campus">
-                    <div class="about-badge"><i class="fa fa-university"></i> Est. 1991 — IUBAT</div>
+        <div class="row g-3">
+            <div class="col-md-4">
+                <div class="services-item" style="text-align:left; padding:20px 18px;">
+                    <div class="svc-icon" style="margin:0 0 12px 0;"><i class="fa fa-id-card-o"></i></div>
+                    <h4 style="font-size:14px;">ID Card Replacement</h4>
+                    <p style="font-size:13.5px;">Select <strong>RequestType = IDCardReplacement</strong>, add description, submit — tracked as <em>Pending</em> by default.</p>
                 </div>
             </div>
-            <div class="col-lg-7">
-                <div class="about-content">
-                    <div class="sec-title" style="margin-bottom:18px; padding-bottom:12px;">
-                        <h2>WELCOME TO <span>IUBAT</span></h2>
-                        <p style="margin-top:6px;">International University of Business Agriculture and Technology — pioneering private university in Bangladesh, committed to academic excellence and service.</p>
-                    </div>
-                    <p class="lead-text">
-                        The <strong>Campus Services Portal</strong> brings every student request into one transparent workflow. Submit once, track continuously, and receive updates directly from authorized staff — no paperwork, no queues.
-                    </p>
-                    <div class="row g-3">
-                        <div class="col-md-6">
-                            <div class="vision-box">
-                                <h5><i class="fa fa-eye" style="color:var(--accent); margin-right:6px;"></i> Our Mission</h5>
-                                <p>Offer quality education and form students in tolerance, compassion and responsibility — mind and heart fully developed.</p>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="vision-box">
-                                <h5><i class="fa fa-bullseye" style="color:var(--accent); margin-right:6px;"></i> Our Vision</h5>
-                                <p>Comprehensive education to develop the whole person — creative, service-oriented and responsive to challenges.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="d-flex gap-2 flex-wrap mt-2">
-                        <span class="status-badge status-pending">Pending</span>
-                        <span class="status-badge status-processing">Processing</span>
-                        <span class="status-badge status-completed">Completed</span>
-                        <span class="status-badge status-rejected">Rejected</span>
-                        <span style="align-self:center; font-size:12px; color:var(--text); margin-left:8px; font-weight:600;">— Real-time status workflow</span>
-                    </div>
+            <div class="col-md-4">
+                <div class="services-item" style="text-align:left; padding:20px 18px;">
+                    <div class="svc-icon" style="margin:0 0 12px 0; background:#fff8e6; border-color:#fde68a; color:#b45309;"><i class="fa fa-file-text-o"></i></div>
+                    <h4 style="font-size:14px;">Transcript Request</h4>
+                    <p style="font-size:13.5px;">Same form, choose <strong>TranscriptRequest</strong>. Students view status; staff update to <em>Processing/Completed</em>.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="services-item" style="text-align:left; padding:20px 18px;">
+                    <div class="svc-icon" style="margin:0 0 12px 0; background:#fef2f2; border-color:#fecaca; color:#b91c1c;"><i class="fa fa-certificate"></i></div>
+                    <h4 style="font-size:14px;">Certificate Request</h4>
+                    <p style="font-size:13.5px;">Select <strong>CertificateRequest</strong>. Staff may set <em>Rejected</em> with clear workflow.</p>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- ===== NOTICE BOARD + WELCOME ===== -->
-<section class="rs-notice-welcome">
+<!-- ===== CONFLICT RESOLUTION — Simple + Secure ===== -->
+<section class="rs-about" style="padding:32px 0 28px;">
     <div class="container">
-        <div class="row g-4">
-            <div class="col-lg-5">
-                <div class="notice-board">
-                    <div class="board-header">
-                        <h4><i class="fa fa-bell"></i> Notice Board</h4>
-                        <a href="#">More Notice <i class="fa fa-angle-right"></i></a>
-                    </div>
-                    <div class="notice-list">
-                        <div class="notice-item">
-                            <div class="pdf-icon"><i class="fa fa-file-pdf-o"></i></div>
-                            <div class="notice-content">
-                                <a href="#">Portal Maintenance — 12 May 2026: Request tracking will be briefly unavailable 2–4 AM</a>
-                                <div class="notice-date"><i class="fa fa-calendar"></i> 09/02/2026</div>
-                            </div>
-                        </div>
-                        <div class="notice-item">
-                            <div class="pdf-icon"><i class="fa fa-file-text-o"></i></div>
-                            <div class="notice-content">
-                                <a href="#">New Service: Online Certificate Verification for Graduates</a>
-                                <div class="notice-date"><i class="fa fa-calendar"></i> 27/08/2026</div>
-                            </div>
-                        </div>
-                        <div class="notice-item">
-                            <div class="pdf-icon"><i class="fa fa-file-pdf-o"></i></div>
-                            <div class="notice-content">
-                                <a href="#">Transcript Request — Updated Processing Time (3 working days)</a>
-                                <div class="notice-date"><i class="fa fa-calendar"></i> 24/08/2026</div>
-                            </div>
-                        </div>
-                        <div class="notice-item">
-                            <div class="pdf-icon" style="background:#eff6ff;border-color:#bfdbfe;color:#1d4ed8;"><i class="fa fa-info-circle"></i></div>
-                            <div class="notice-content">
-                                <a href="#">Reminder: Keep your student email verified to receive status notifications</a>
-                                <div class="notice-date"><i class="fa fa-calendar"></i> 18/08/2026</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-7">
-                <div class="welcome-card">
-                    <h3>IUBAT CAMPUS <span>SERVICES</span></h3>
-                    <p class="welcome-lead">
-                        At present, all service requests are handled through this portal — supported entirely by the IUBAT IT and Administrative offices. No physical queue is required. The system is available 24/7 and each submission is visible only to you and authorized staff.
-                    </p>
-                    <div style="background:var(--primary-soft); border-left:4px solid var(--accent); padding:14px 16px; border-radius:4px; margin-bottom:16px;">
-                        <h5 style="font-size:13px; text-transform:uppercase; letter-spacing:0.06em; margin-bottom:6px; color:var(--primary);"><i class="fa fa-history" style="color:var(--accent);"></i> College History — Service Evolution</h5>
-                        <p style="font-size:13.5px; line-height:1.65; margin:0; color:var(--text);">
-                            IUBAT, founded in 1991 by Prof. Dr. M Alimullah Miyan, was the first private university in Bangladesh. The Campus Services Portal continues that pioneering spirit — digitizing student services with the same commitment to integrity, excellence and care that has defined IUBAT for over three decades.
+        <div class="detail-card" style="border-left:4px solid var(--accent);">
+            <div class="detail-body">
+                <div class="row g-3 align-items-center">
+                    <div class="col-lg-8">
+                        <h5 style="text-transform:uppercase; font-size:13px; letter-spacing:0.07em; color:var(--primary); margin-bottom:6px;"><i class="fa fa-balance-scale" style="color:var(--accent);"></i> Needs → Conflict → Design</h5>
+                        <p style="font-size:13.5px; line-height:1.65; margin-bottom:10px; color:var(--text);">
+                            <strong>Users:</strong> Student (register/login, submit, view own) & Staff (login, view all, update status). <strong>Functional:</strong> CRUD on <code>ServiceRequest</code> + Auth + Role. <strong>Non-functional:</strong> Usability, Security, Reliability.
+                            <strong style="color:var(--primary);">Conflict:</strong> Ease-of-use vs access control — open forms vs restricted staff edits.
+                            <strong style="color:var(--primary);">Design fix:</strong> Simple single form for students + <code>[Authorize(Roles="Staff")]</code> gate + EF FK <code>StudentId</code> filter so students see only own rows.
                         </p>
+                        <div class="d-flex gap-2 flex-wrap">
+                            <span class="status-badge status-pending">Pending</span>
+                            <span class="status-badge status-processing">Processing</span>
+                            <span class="status-badge status-completed">Completed</span>
+                            <span class="status-badge status-rejected">Rejected</span>
+                        </div>
                     </div>
-                    <div style="display:flex; gap:10px; flex-wrap:wrap;">
-                        @if (User.Identity != null && User.Identity.IsAuthenticated)
-                        {
-                            @if (User.IsInRole("Student"))
-                            {
-                                <a asp-controller="Student" asp-action="Create" class="btn btn-primary-custom"><i class="fa fa-plus"></i> Submit Request</a>
-                                <a asp-controller="Student" asp-action="MyRequests" class="btn btn-outline-custom"><i class="fa fa-list"></i> My Requests</a>
-                            }
-                            else if (User.IsInRole("Staff"))
-                            {
-                                <a asp-controller="Staff" asp-action="AllRequests" class="btn btn-primary-custom"><i class="fa fa-cogs"></i> Manage All Requests</a>
-                            }
-                        }
-                        else
-                        {
-                            <a asp-controller="Account" asp-action="Login" class="btn btn-primary-custom"><i class="fa fa-sign-in"></i> Sign In</a>
-                            <a asp-controller="Account" asp-action="Register" class="btn btn-outline-custom"><i class="fa fa-user-plus"></i> Create Account</a>
-                        }
-                    </div>
-                    <div class="welcome-stats">
-                        <div class="stat"><strong>24/7</strong><span>Portal Access</span></div>
-                        <div class="stat"><strong>3-Step</strong><span>Submit → Review → Done</span></div>
-                        <div class="stat"><strong>100%</strong><span>Staff Verified</span></div>
+                    <div class="col-lg-4 text-lg-end">
+                        <div style="display:inline-flex; flex-direction:column; gap:8px;">
+                            <a asp-controller="Student" asp-action="Create" class="btn btn-primary-custom btn-sm"><i class="fa fa-plus"></i> Submit Request (Student)</a>
+                            <a asp-controller="Staff" asp-action="AllRequests" class="btn btn-outline-custom btn-sm" style="justify-content:center;"><i class="fa fa-shield"></i> Manage (Staff only)</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -211,93 +106,13 @@
     </div>
 </section>
 
-<!-- ===== COUNTER (like NDC 94 teachers etc) ===== -->
-<section class="rs-counter">
+<!-- ===== MINIMAL DATABASE / MVC HINT — no extra page ===== -->
+<section style="background:var(--bg-gray); border-top:1px solid #e9e9e9; padding:22px 0;">
     <div class="container">
-        <div class="row g-0 text-center">
-            <div class="col-6 col-lg-3">
-                <div class="counter-item">
-                    <div class="counter-icon"><i class="fa fa-users"></i></div>
-                    <div class="counter-number">6,500+</div>
-                    <div class="counter-title">Students Served</div>
-                    <div class="counter-desc">Active student accounts</div>
-                </div>
-            </div>
-            <div class="col-6 col-lg-3">
-                <div class="counter-item">
-                    <div class="counter-icon"><i class="fa fa-file-text"></i></div>
-                    <div class="counter-number">2,400+</div>
-                    <div class="counter-title">Requests Processed</div>
-                    <div class="counter-desc">This academic year</div>
-                </div>
-            </div>
-            <div class="col-6 col-lg-3">
-                <div class="counter-item">
-                    <div class="counter-icon"><i class="fa fa-clock-o"></i></div>
-                    <div class="counter-number">48h</div>
-                    <div class="counter-title">Avg. Response</div>
-                    <div class="counter-desc">Pending → Processing</div>
-                </div>
-            </div>
-            <div class="col-6 col-lg-3">
-                <div class="counter-item">
-                    <div class="counter-icon"><i class="fa fa-building"></i></div>
-                    <div class="counter-number">15+</div>
-                    <div class="counter-title">Service Types</div>
-                    <div class="counter-desc">ID, Transcript, Certificate</div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- ===== RECENT & UPCOMING / FEATURED SERVICES ===== -->
-<section class="rs-events">
-    <div class="container">
-        <div class="sec-title text-center" style="max-width:720px; margin-left:auto; margin-right:auto;">
-            <h2>Recent &amp; Upcoming <span>Services</span></h2>
-            <p style="margin-left:auto; margin-right:auto;">Explore the most requested campus services. Every submission is tracked live and handled only by verified IUBAT staff.</p>
-        </div>
-        <div class="row g-4">
-            <div class="col-md-4">
-                <div class="event-card">
-                    <div class="event-img">
-                        <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=600&q=80" alt="ID Card">
-                        <span class="event-date">ID Card</span>
-                    </div>
-                    <div class="event-body">
-                        <h4 class="event-title"><a href="#">ID Card Replacement & Reissue</a></h4>
-                        <p class="event-desc">Lost or damaged ID? Submit a request with reason — track photo verification and reprint status in real time.</p>
-                        <a asp-controller="Student" asp-action="Create" class="event-link">Submit Request <i class="fa fa-angle-right"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="event-card">
-                    <div class="event-img">
-                        <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=600&q=80" alt="Transcript">
-                        <span class="event-date">Transcript</span>
-                    </div>
-                    <div class="event-body">
-                        <h4 class="event-title"><a href="#">Academic Transcript Request</a></h4>
-                        <p class="event-desc">Official transcripts for graduates and current students — choose digital delivery or sealed print collection.</p>
-                        <a asp-controller="Student" asp-action="Create" class="event-link">Request Transcript <i class="fa fa-angle-right"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="event-card">
-                    <div class="event-img">
-                        <img src="https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?auto=format&fit=crop&w=600&q=80" alt="Certificate">
-                        <span class="event-date">Certificate</span>
-                    </div>
-                    <div class="event-body">
-                        <h4 class="event-title"><a href="#">Certificate & Verification</a></h4>
-                        <p class="event-desc">Degree, provisional and other certificates — verified, signed and ready for collection with live status updates.</p>
-                        <a asp-controller="Student" asp-action="Create" class="event-link">Get Certificate <i class="fa fa-angle-right"></i></a>
-                    </div>
-                </div>
-            </div>
+        <div class="row g-3" style="font-size:12.5px; color:var(--text);">
+            <div class="col-md-4"><strong style="color:var(--primary);">Models:</strong> <code>ApplicationUser</code> (Identity), <code>ServiceRequest</code> (Id, StudentId FK, RequestType enum×3, Description[500], Status enum×4, Created/Updated), <code>Enums</code></div>
+            <div class="col-md-4"><strong style="color:var(--primary);">Controllers:</strong> <code>Account</code> (Login/Register/Logout), <code>Student</code> (Create/MyRequests/Details — Student only), <code>Staff</code> (AllRequests/Details/UpdateStatus — Staff only), <code>Home</code></div>
+            <div class="col-md-4"><strong style="color:var(--primary);">Flow:</strong> User → View (Razor form, validation) → Controller (Authorize+Validate+EF) → Model/DB (PostgreSQL/Npgsql) → View (status badge). Simple, secure, meets all Part C requirements.</div>
         </div>
     </div>
 </section>
