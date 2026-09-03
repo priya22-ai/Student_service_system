@@ -27,9 +27,11 @@ builder.WebHost.UseUrls($"http://0.0.0.0:{port}");
 Environment.SetEnvironmentVariable("DOTNET_USE_POLLING_FILE_WATCHER", "true");
 
 // Helper: Neon gives postgresql:// URL, Npgsql prefers Host=...; also support Render's DATABASE_URL
-string? rawConn = builder.Configuration.GetConnectionString("DefaultConnection")
-    ?? Environment.GetEnvironmentVariable("DATABASE_URL")
-    ?? Environment.GetEnvironmentVariable("ConnectionStrings__DefaultConnection");
+// PRIORITY: DATABASE_URL (Render/Neon) > ConnectionStrings__DefaultConnection > appsettings DefaultConnection
+// otherwise placeholder in appsettings would shadow Neon on Render
+string? rawConn = Environment.GetEnvironmentVariable("DATABASE_URL")
+    ?? Environment.GetEnvironmentVariable("ConnectionStrings__DefaultConnection")
+    ?? builder.Configuration.GetConnectionString("DefaultConnection");
 
 string? connectionString = null;
 if (!string.IsNullOrWhiteSpace(rawConn))
