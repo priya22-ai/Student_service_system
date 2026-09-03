@@ -111,7 +111,7 @@ builder.Services.Configure<ForwardedHeadersOptions>(options =>
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 {
     options.Password.RequireDigit = true;
-    options.Password.RequireLowercase = false; // allows M@Y@123 (no lowercase) for maya@iubat.com
+    options.Password.RequireLowercase = false; // kept false for compatibility (priya@iubat.edu uses P@ssw0rd)
     options.Password.RequireUppercase = true;
     options.Password.RequireNonAlphanumeric = false;
     options.Password.RequiredLength = 6;

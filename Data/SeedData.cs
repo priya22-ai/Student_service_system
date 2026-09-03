@@ -20,23 +20,38 @@ namespace WebApplication1.Data
                 }
             }
 
-            string staffEmail = "maya@iubat.com";
+            string staffEmail = "priya@iubat.edu";
             if (await userManager.FindByEmailAsync(staffEmail) == null)
             {
                 var staffUser = new ApplicationUser
                 {
                     UserName = staffEmail,
                     Email = staffEmail,
-                    FirstName = "Maya",
+                    FirstName = "Priya",
                     LastName = "IUBAT",
                     EmailConfirmed = true
                 };
 
-                var result = await userManager.CreateAsync(staffUser, "M@Y@123");
+                var result = await userManager.CreateAsync(staffUser, "P@ssw0rd");
                 if (result.Succeeded)
                 {
                     await userManager.AddToRoleAsync(staffUser, "Staff");
                 }
+                else
+                {
+                    Console.WriteLine($"[Seed] Failed to create {staffEmail}: {string.Join(", ", result.Errors.Select(e => e.Description))}");
+                }
+            }
+
+            // Cleanup legacy staff maya@iubat.com (replaced by priya@iubat.edu per latest requirement)
+            var legacyEmail = "maya@iubat.com";
+            var legacyUser = await userManager.FindByEmailAsync(legacyEmail);
+            if (legacyUser != null)
+            {
+                var delResult = await userManager.DeleteAsync(legacyUser);
+                Console.WriteLine(delResult.Succeeded
+                    ? $"[Seed] Removed legacy staff {legacyEmail} (migrated to {staffEmail})."
+                    : $"[Seed] Failed to remove legacy {legacyEmail}: {string.Join(", ", delResult.Errors.Select(e => e.Description))}");
             }
         }
     }
